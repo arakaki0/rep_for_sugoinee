@@ -1,0 +1,81 @@
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        ユーザー詳細
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section  class="section">
+  <div class="container">
+    <div class="columns is-centered">
+
+      <div class="column">
+        <div class="image is-64x64">
+          <img src="<%= "/user_images/#{@user.image_name}" %>  ">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="columns">
+      <div class="column is-8">
+        <%= @user.name %>
+        <% if @current_user.id == @user.id %>
+           <%= link_to("編集","/user/edit/#{@user.id}")  %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="columns" >
+      <div class="column is-8">
+        スゴイね！の獲得総数
+        <%= @like_count %>
+      </div>
+    </div>
+
+    <div class="columns" >
+      <div class="column is-8">
+        <% if @user.point < 3 %>
+        <%="次の投稿をするにはあと#{3-@user.point}回他の人をスゴイね！しましょう。"%>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" >
+
+
+
+  <div class="column">
+    <p>最近の投稿</p>
+  </div>
+
+  <div class="column">
+    <% @user.post.each do |post| %>
+    <%= link_to(post.content,"/post/#{post.id}") %>
+    <i class="far fa-heart"></i>
+    <%= Like.where(post_id: post.id).count %>
+    <% end %>
+  </div>
+
+
+  <div class="column">
+    <p>スゴイね！した投稿</p>
+  </div>
+
+  <div class="column">
+    <% as = Like.where(user_id: @user.id) %>
+    <% as.each do |a| %>
+    <% b = Post.find_by(id: a.post_id) %>
+    <%= b.content %>
+    <% end %>
+  </div>
+
+</section>

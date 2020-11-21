@@ -1,0 +1,39 @@
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        投稿一覧
+      </h1>
+    </div>
+  </div>
+</section>
+
+<% @posts.each do |post| %>
+<div class="colunms">
+  <div class="column">
+    <div class="card ">
+
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img src="<%= "/user_images/#{post.user.image_name}" %>">
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4"><%= link_to(post.user.name,"/user/#{post.user.id}")  %></p>
+          </div>
+        </div>
+
+        <div class="content">
+          <%= link_to(post.content,"/post/#{post.id}") %>
+          <br>
+          <time datetime="2016-1-1"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></time>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<% end %>

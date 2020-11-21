@@ -1,0 +1,23 @@
+<div class="post_show_image">
+   <img src="<%= "/user_images/#{@user.image_name}" %>" width="50px" height="50px" >
+ </div>
+ <div class="post_show_image" >
+<%= @post.content %>
+<%= @post.created_at %>
+<% if @user.id == @current_user.id %>
+  <%= link_to("編集","/post/edit/#{@post.id}") %>
+  <%= link_to("削除","/post/destroy/#{@post.id}",{method:"post"}) %>
+<% end %>
+
+<p>いいね！<%= Like.where(post_id: @post.id).count %></p>
+
+<% if Like.find_by(user_id: @current_user.id,post_id: @post.id) %>
+  <%= link_to("/like/#{@post.id}/destroy",{method: "post"})do %>
+  <i class="fas fa-heart like-herat"></i>
+  <% end %>
+<% else %>
+  <%= link_to("/like/#{@post.id}/create",{method: "post"})do %>
+  <i class="far fa-heart"></i>
+  <% end %>
+<% end %>
+</div>

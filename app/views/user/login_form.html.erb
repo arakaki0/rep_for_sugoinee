@@ -1,0 +1,27 @@
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        ログイン
+      </h1>
+    </div>
+  </div>
+</section>
+
+<%= @error %>
+
+
+
+
+<div class="columns is-centered">
+  <div class="column is-11">
+    <%= form_tag("/login") do %>
+      <p> メールアドレス </p>
+      <input type="text" name="email" value="<%= @email %>" >
+      <p> パスワード </p>
+      <input type="password" name="password" value="<%= @password %>" >
+      <input type="submit" value="ログイン">
+    <% end %>
+  </div>
+
+</div>

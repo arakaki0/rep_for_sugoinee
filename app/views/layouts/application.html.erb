@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JisinApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="stylesheet" href="stylesheet.css">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  </head>
+
+  <body>
+<% if flash[:notice] %>
+<%= flash[:notice] %>
+<% end %>
+
+<header class="navbar" >
+
+  <div class="navbar-brand">
+    <div class="navbar-item">
+      <a href="/" class="is-size-4 has-text-weight-semibold	">スゴイね！アプリ</a>
+    </div>
+  </div>
+  <div class="navbar-end">
+    <div class="navbar-item">
+
+    <% if session[:user_id] %>
+      <div class="navbar-item">
+        <a href="/post/index">投稿一覧</a>
+      </div>
+
+      <div class="navbar-item">
+        <a href="/post/new">新規投稿</a>
+      </div>
+
+      <div class="navbar-item">
+        <a href="/user/index">ユーザー一覧</a>
+      </div>
+
+      <div class="navbar-item">
+        <a href="/logout">ログアウト</a>
+      </div>
+
+    <% else %>
+
+      <div class="navbar-item">
+        <a href="about">ABOUT</a>
+      </div>
+
+      <div class="navbar-item">
+        <a href="/user/signup">新規登録</a>
+      </div>
+
+      <div class="navbar-item">
+        <a href="/login">ログイン</a>
+      </div>
+
+    <% end %>
+
+    </div>
+
+  </div>
+</header>
+
+<div class="hero is-warning is-bold">
+  <div class="hero-body">
+    <% if session[:user_id] %>
+      <h1 class="title"><%= link_to(@current_user.name,"/user/#{@current_user.id}") %></h1>
+      <h1 class="title" >スゴイね！の総獲得数<%= @like_count %></h1>
+
+    <% end %>
+  </div>
+
+</div>
+
+    <%= yield %>
+
+ <footer class="footer">
+   <div class="container">
+     <div class="content has-text-centered">
+        <h4>スゴイね！アプリ</h4>
+     </div>
+   </div>
+ </footer>
+  </body>
+</html>
